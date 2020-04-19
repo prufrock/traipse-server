@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\GraphQL;
 
+use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
@@ -17,7 +18,7 @@ class MeTest extends TestCase
     {
        parent::setUp();
 
-        $this->user = factory(\App\User::class)->create([
+        $this->user = factory(User::class)->create([
             'name' => 'Bessie Coleman',
             'api_token' => 'authenticate-me'
         ]);
