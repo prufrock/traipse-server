@@ -42,4 +42,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Group');
     }
+
+    public function catchables()
+    {
+        return $this->groups();
+    }
 }
