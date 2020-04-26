@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Eloquent;
 
+use App\Group;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -20,5 +21,15 @@ class UserTest extends TestCase
         $user = factory(User::class)->create();
         
         $this->assertEquals($user->name, User::find($user->id)->name);
+    }
+    
+    public function testAUserCanHaveAGroup()
+    {
+        $user = factory(User::class)->create();
+        $group = factory(Group::class)->create();
+        
+        $user->groups()->attach($group->id);
+        
+        $this->assertEquals($group->id, $user->groups()->first()->id);
     }
 }
