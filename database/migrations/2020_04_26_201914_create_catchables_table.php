@@ -16,6 +16,7 @@ class CreateCatchablesTable extends Migration
         Schema::create('catchables', function (Blueprint $table) {
             $table->id();
             $table->string("name");
+            $table->unsignedInteger('trip_id');
             $table->timestamps();
         });
     }

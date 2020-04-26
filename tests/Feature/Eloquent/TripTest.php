@@ -21,4 +21,23 @@ class TripTest extends TestCase
         
         $this->assertEquals($trip->name, Trip::find($trip->id)->name);
     }
+
+    public function testATripHasACatchable()
+    {
+        $trip = factory(Trip::class)->create(['name' => 'Adventure!']);
+        $trip->catchables()->create(['name' => 'Rainbow Trout']);
+        
+        $this->assertEquals('Rainbow Trout', $trip->catchables()->first()->name);
+    }
+
+    public function testATripCanHaveManyCatchables()
+    {
+        $trip = factory(Trip::class)->create(['name' => 'Adventure!']);
+        
+        $trip->catchables()->create(['name' => 'Rainbow Trout']);
+        $trip->catchables()->create(['name' => 'Lake Trout']);
+        $trip->catchables()->create(['name' => 'Trout Trout']);
+
+        $this->assertEquals(3, $trip->catchables()->count());
+    }
 }
