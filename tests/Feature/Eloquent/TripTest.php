@@ -2,23 +2,23 @@
 
 namespace Tests\Feature\Eloquent;
 
-use App\Group;
+use App\Trip;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class GroupTest extends TestCase
+class TripTest extends TestCase
 {
     use RefreshDatabase;
     
     public function testFindUserThatDoesntExistReturnsNothing()
     {
-        $this->assertNull(Group::find(99999));
+        $this->assertNull(Trip::find(99999));
     }
     
     public function testFindUserThatDoesExistReturnsTheUser()
     {
-        $group = factory(Group::class)->create(['name' => 'Adventure!']);
+        $trip = factory(Trip::class)->create(['name' => 'Adventure!']);
         
-        $this->assertEquals($group->name, Group::find($group->id)->name);
+        $this->assertEquals($trip->name, Trip::find($trip->id)->name);
     }
 }
