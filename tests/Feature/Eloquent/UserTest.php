@@ -32,4 +32,17 @@ class UserTest extends TestCase
         
         $this->assertEquals($group->id, $user->groups()->first()->id);
     }
+    
+    public function testAUserCanGetTheCatchablesFromTheirTrip()
+    {
+        $user = factory(User::class)->create();
+        $group = factory(Group::class)->create();
+        
+        $user->groups()->attach($group->id);
+        
+        $trip = $group->trips()->create(['name' => 'Swirl Island']);
+        $trip->catchables()->create(['name' => 'Red Snapper']);
+        
+        $this->assertEquals('Red Snapper', $user->catchables()->first()->name);
+    }
 }
