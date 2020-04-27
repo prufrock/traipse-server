@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\GraphQL;
 
+use App\Group;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -22,6 +23,17 @@ class MeTest extends TestCase
             'name' => 'Bessie Coleman',
             'api_token' => 'authenticate-me'
         ]);
+        
+        $group = factory(Group::class)->create([
+           'name' => 'Stunt Pilot' 
+        ]);
+        
+        $this->user->groups()->attach($group);
+        
+        $group->trips()->create([
+            'name' => 'Airshow'
+        ]);
+
     }
     
     public function testUnauthenticatedUserFailsToMakeRequestForMe()
@@ -54,6 +66,63 @@ class MeTest extends TestCase
             'data' => [
                 'me' => [
                     'name' => $this->user->name
+                ]
+            ]
+        ]);
+    }
+    
+    public function testAnAuthenticedUserWithNoCollectiblesGetsAnEmptyList()
+    {
+        $response = $this->postGraphQL(['query' => '
+            query Me { 
+                 me { 
+                     name
+                     catchables {
+                         id
+                         name
+                     } 
+                }
+           }
+            '],
+            ['Authorization' => 'Bearer authenticate-me']
+        )->assertJson([
+            'data' => [
+                'me' => [
+                    'name' => $this->user->name,
+                    'catchables' => []
+                ]
+            ]
+        ]);
+    }
+
+    public function testAnAuthenticedUserWithACatchableCanSeeIt()
+    {
+        $catchable = $this->user->catchables()->create([
+            'name' => 'stunt plane model'
+        ]);
+        
+        $response = $this->postGraphQL(['query' => '
+            query Me { 
+                 me { 
+                     name
+                     catchables {
+                         id
+                         name
+                     } 
+                }
+           }
+            '],
+            ['Authorization' => 'Bearer authenticate-me']
+        )->assertJson([
+            'data' => [
+                'me' => [
+                    'name' => $this->user->name,
+                    'catchables' => [
+                        [
+                            'id' => $catchable->id,
+                            'name' => 'stunt plane model',
+                        ]
+                    ]
                 ]
             ]
         ]);

@@ -9,6 +9,13 @@ type Query {
 }
 
 type User {
+    id: ID!
+    name: String!
+    catchables: [Catchables!]!
+}
+
+type Catchables {
+    id: ID!
     name: String!
 }
 
