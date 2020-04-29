@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\GraphQL;
 
-use App\Group;
 use App\User;
+use BessieSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
@@ -17,22 +17,11 @@ class MeTest extends TestCase
 
     public function setUp(): void 
     {
-       parent::setUp();
-
-        $this->user = factory(User::class)->create([
-            'name' => 'Bessie Coleman',
-            'api_token' => 'authenticate-me'
-        ]);
+        parent::setUp();
         
-        $group = factory(Group::class)->create([
-           'name' => 'Stunt Pilot' 
-        ]);
+        $this->seed(BessieSeeder::class);
         
-        $this->user->groups()->attach($group);
-        
-        $group->trips()->create([
-            'name' => 'Airshow'
-        ]);
+        $this->user = User::where('name', 'Bessie Coleman')->first();
 
     }
     
