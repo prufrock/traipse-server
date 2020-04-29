@@ -54,7 +54,7 @@ class MeTest extends TestCase
     
     public function testAuthenticatedUserCanMakeARequestForMe()
     {
-        $response = $this->postGraphQL(['query' => '
+        $this->postGraphQL(['query' => '
             query Me { 
                me { 
                    name
@@ -73,7 +73,7 @@ class MeTest extends TestCase
     
     public function testAnAuthenticedUserWithNoCollectiblesGetsAnEmptyList()
     {
-        $response = $this->postGraphQL(['query' => '
+        $this->postGraphQL(['query' => '
             query Me { 
                  me { 
                      name
@@ -101,7 +101,7 @@ class MeTest extends TestCase
             'name' => 'stunt plane model'
         ]);
         
-        $response = $this->postGraphQL(['query' => '
+        $this->postGraphQL(['query' => '
             query Me { 
                  me { 
                      name
