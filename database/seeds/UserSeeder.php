@@ -15,12 +15,15 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $user = factory(User::class, 1)->create(['api_token' => 'authenticate-me'])->first();
+        $user = factory(User::class)->create(['api_token' => 'authenticate-me']);
+        
         $group = factory(Group::class)->create();
+        
         $trip = factory(Trip::class)->create([
             'name' => 'Beach Island',
             'group_id' => $group->id
         ]);
+        
         factory(Catchable::class)->create([
             'name' => 'Squid',
             'trip_id' => $trip->id

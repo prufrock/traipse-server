@@ -8,6 +8,6 @@ use Faker\Generator as Faker;
 $factory->define(Trip::class, function (Faker $faker) {
     return [
         'name' => $faker->company,
-        'group_id' => factory(App\Group::class)->create()
+        'group_id' => factory(App\Group::class)
     ];
 });
