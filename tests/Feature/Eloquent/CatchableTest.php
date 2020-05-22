@@ -11,12 +11,12 @@ class CatchableTest extends TestCase
 {
     use RefreshDatabase;
     
-    public function testFindUserThatDoesntExistReturnsNothing()
+    public function testFindCatchableThatDoesntExistReturnsNothing()
     {
         $this->assertNull(Catchable::find(99999));
     }
     
-    public function testFindUserThatDoesExistReturnsTheUser()
+    public function testFindCatchableThatDoesExistReturnsTheCatchable()
     {
         $catchable = factory(Catchable::class)->create(['name' => 'Butterfly']);
         
