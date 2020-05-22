@@ -11,12 +11,12 @@ class GroupTest extends TestCase
 {
     use RefreshDatabase;
     
-    public function testFindUserThatDoesntExistReturnsNothing()
+    public function testFindGroupThatDoesntExistReturnsNothing()
     {
         $this->assertNull(Group::find(99999));
     }
     
-    public function testFindUserThatDoesExistReturnsTheUser()
+    public function testFindGroupThatDoesExistReturnsTheUser()
     {
         $group = factory(Group::class)->create(['name' => 'Adventure!']);
         
