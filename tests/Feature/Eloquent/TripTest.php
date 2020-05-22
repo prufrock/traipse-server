@@ -10,12 +10,12 @@ class TripTest extends TestCase
 {
     use RefreshDatabase;
     
-    public function testFindUserThatDoesntExistReturnsNothing()
+    public function testFindTripThatDoesntExistReturnsNothing()
     {
         $this->assertNull(Trip::find(99999));
     }
     
-    public function testFindUserThatDoesExistReturnsTheUser()
+    public function testFindTripThatDoesExistReturnsTheTrip()
     {
         $trip = factory(Trip::class)->create(['name' => 'Adventure!']);
         
