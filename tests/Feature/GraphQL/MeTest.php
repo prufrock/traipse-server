@@ -60,7 +60,7 @@ class MeTest extends TestCase
         ]);
     }
     
-    public function testAnAuthenticedUserWithNoCollectiblesGetsAnEmptyList()
+    public function testAnAuthenticatedUserWithNoCatchablesGetsAnEmptyList()
     {
         $this->postGraphQL(['query' => '
             query Me { 
@@ -84,7 +84,7 @@ class MeTest extends TestCase
         ]);
     }
 
-    public function testAnAuthenticedUserWithACatchableCanSeeIt()
+    public function testAnAuthenticatedUserWithACatchableCanSeeIt()
     {
         $catchable = $this->user->catchables()->create([
             'name' => 'stunt plane model'
